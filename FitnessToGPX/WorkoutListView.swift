@@ -47,6 +47,11 @@ struct WorkoutListView: View {
                     }
                 }
                 .animation(.default, value: editMode)
+                .onChange(of: editMode.isEditing) { isEditing in
+                    if !isEditing {
+                        selectedWorkouts.removeAll()
+                    }
+                }
                 .environment(\.editMode, $editMode)
                 if let progress = gpxExportState.progress {
                     VStack {
