@@ -1,6 +1,5 @@
 import HealthKit
 import CoreLocation
-import os
 
 private let supportedActivities: [HKWorkoutActivityType] = [
     .cycling,
@@ -46,10 +45,12 @@ extension HKHealthStore {
     ///     the results returned by this query. Pass `nil` if you don’t need the results
     ///     in a specific order.
     /// - Returns: An array containing the samples found by the query.
-    func query(sampleType: HKSampleType,
-               predicate: NSPredicate?,
-               limit: Int,
-               sortDescriptors: [NSSortDescriptor]?) async throws -> [HKSample] {
+    fileprivate func query(
+        sampleType: HKSampleType,
+        predicate: NSPredicate?,
+        limit: Int,
+        sortDescriptors: [NSSortDescriptor]?
+    ) async throws -> [HKSample] {
         try await withCheckedThrowingContinuation { continuation in
             let query = HKSampleQuery(
                 sampleType: sampleType,
@@ -62,7 +63,7 @@ extension HKHealthStore {
                     } else if let error = error {
                         continuation.resume(throwing: error)
                     } else {
-                        fatalError("HealthKit contract violation")
+                        HealthKitContractViolation()
                     }
                 }
             )
@@ -78,7 +79,7 @@ extension HKHealthStore {
     ///
     /// - Parameter route: The workout route containing the location data.
     /// - Returns: Batches of location data as an asynchronous stream.
-    func workoutRouteQuery(
+    fileprivate func workoutRouteQuery(
         route: HKWorkoutRoute
     ) -> AsyncThrowingStream<[CLLocation], Error> {
         AsyncThrowingStream { continuation in
@@ -89,7 +90,7 @@ extension HKHealthStore {
                 } else if let locations = locations {
                     continuation.yield(locations)
                 } else {
-                    fatalError("HealthKit contract violation")
+                    HealthKitContractViolation()
                 }
                 if done {
                     continuation.finish(throwing: nil)
@@ -107,8 +108,7 @@ extension HKHealthStore {
 
 struct HealthKitHelper {
 
-    let logger = Logger(subsystem: FitnessToGPXApp.bundleIdentifier,
-                        category: "HealthKitHelper")
+    private let logger = Logger(category: "HealthKitHelper")
 
     private var store = HKHealthStore()
 
@@ -125,14 +125,16 @@ struct HealthKitHelper {
                    HKSeriesType.workoutRoute(),
                    HKQuantityType.quantityType(forIdentifier: .heartRate)!]
         )
+        logger.debug("HealthKit authorized successfully")
     }
 
     /// Returns an array of workouts of supported activity types sorted from the most
     /// recent to the oldest.
     func loadWorkouts() async throws -> [HKWorkout] {
         logger.debug("Loading workouts from HealthKit")
-        return try await store.query(
-            sampleType: HKWorkoutType.workoutType(),
+
+        let workouts = try await store.query(
+            sampleType: .workoutType(),
             predicate: NSCompoundPredicate(
                 orPredicateWithSubpredicates:
                     supportedActivities.map(HKQuery.predicateForWorkouts)
@@ -142,11 +144,17 @@ struct HealthKitHelper {
                 NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
             ]
         ) as! [HKWorkout]
+
+        logger.debug("Successfully loaded workouts")
+
+        return workouts
     }
 
     func route(
         for workout: HKWorkout
-    ) async throws -> LazyMapSequence<[HKWorkoutRoute], AsyncThrowingStream<[CLLocation], Error>> {
+    ) async throws -> LazyMapSequence<[HKWorkoutRoute],
+                                      AsyncThrowingStream<[CLLocation], Error>>
+    {
         logger.debug("Loading route for workout \(workout)")
         let workoutSamples = try await store
             .query(sampleType: HKSeriesType.workoutRoute(),

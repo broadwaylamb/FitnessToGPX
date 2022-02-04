@@ -1,7 +1,17 @@
 import HealthKit
-import os
 import CoreLocation
 import Foundation
+
+extension HealthKitHelper {
+    func exportGPX(for workout: HKWorkout) async throws -> TemporaryGPXFile {
+        let heartRate = try await self.heartRate(for: workout)
+        let routeSamples = try await self.route(for: workout)
+        let exporter = GPXExporter()
+        return try await exporter.save(workout: workout,
+                                       routeSegments: routeSamples,
+                                       heartRate: heartRate)
+    }
+}
 
 final class TemporaryGPXFile {
     let url: URL
@@ -21,23 +31,18 @@ actor GPXExporter {
 
     private static let isoDateFormatter = ISO8601DateFormatter()
 
-    private static let trackNameDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        formatter.dateStyle = .medium
-        return formatter
-    }()
+    private static let trackNameDateFormatter = with(DateFormatter()) {
+        $0.timeStyle = .short
+        $0.dateStyle = .medium
+    }
 
-    private static let fileNameDateFormatter: DateFormatter = {
-        let formatter = DateFormatter();
-        formatter.dateFormat = "yyyy-MM-dd_hh.mm.ss"
-        return formatter;
-    }()
+    private static let fileNameDateFormatter = with(DateFormatter()) {
+        $0.dateFormat = "yyyy-MM-dd_hh.mm.ss"
+    }
 
     private static let bpmUnit = HKUnit.count().unitDivided(by: .minute())
 
-    let logger = Logger(subsystem: FitnessToGPXApp.bundleIdentifier,
-                        category: "GPXExporter")
+    let logger = Logger(category: "GPXExporter")
 
     func save<Segments: Sequence>(
         workout: HKWorkout,
@@ -54,7 +59,7 @@ actor GPXExporter {
 
         logger.debug("Saving workout data to \(temporaryGPXFile.url)")
 
-        let destinationFile = try FileHandle(forWritingTo: temporaryGPXFile.url)
+        let destinationFile = try File(path: temporaryGPXFile.url, mode: .write)
 
         logger.debug("Writing GPX data")
 
@@ -83,6 +88,8 @@ xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">\
         var remainingHeartRateSamples = heartRate[...]
         var lastHeartRateValue: Double?
 
+        print(Array(routeSegments))
+
         for segment in routeSegments {
             try destinationFile.writeUTF8("<trkseg>")
             for try await batch in segment {
@@ -100,7 +107,7 @@ xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">\
                         lastHeartRateValue = sample
                             .quantity
                             .doubleValue(for: Self.bpmUnit)
-                        remainingHeartRateSamples = remainingHeartRateSamples[1...]
+                        remainingHeartRateSamples = remainingHeartRateSamples.dropFirst()
                     }
 
                     if let lastHeartRateValue = lastHeartRateValue {
@@ -125,11 +132,5 @@ xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">\
         logger.debug("Successfully written GPX data")
 
         return temporaryGPXFile
-    }
-}
-
-extension FileHandle {
-    func writeUTF8(_ string: String) throws {
-        try write(contentsOf: Data(string.utf8))
     }
 }

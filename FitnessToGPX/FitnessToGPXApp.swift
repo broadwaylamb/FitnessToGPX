@@ -4,7 +4,7 @@ import SwiftUI
 struct FitnessToGPXApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WorkoutListView()
         }
     }
 

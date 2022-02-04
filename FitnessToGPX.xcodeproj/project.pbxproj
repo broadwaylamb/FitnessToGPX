@@ -7,9 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		872BEF2827AC481800C89562 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872BEF2727AC481800C89562 /* Errors.swift */; };
 		8759B86F26CFF7F500026014 /* GPXExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8759B86E26CFF7F500026014 /* GPXExporter.swift */; };
+		87CCFB3726D0530D003BFBE7 /* WorkoutListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CCFB3626D0530D003BFBE7 /* WorkoutListViewModel.swift */; };
+		87CCFB3926D053AF003BFBE7 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CCFB3826D053AF003BFBE7 /* WorkoutDetailView.swift */; };
+		87D1663127AC615900C9BC49 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D1663027AC615900C9BC49 /* Utils.swift */; };
+		87D1663327AC6F1F00C9BC49 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D1663227AC6F1F00C9BC49 /* ShareSheet.swift */; };
+		87D1663527AC75E200C9BC49 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D1663427AC75E200C9BC49 /* IO.swift */; };
+		87D1663927AC992800C9BC49 /* GPXExportState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D1663827AC992800C9BC49 /* GPXExportState.swift */; };
+		87D1663B27ACB0A500C9BC49 /* TranslucentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D1663A27ACB0A500C9BC49 /* TranslucentBackground.swift */; };
 		87FF1D0926CEBDA100157C40 /* FitnessToGPXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF1D0826CEBDA100157C40 /* FitnessToGPXApp.swift */; };
-		87FF1D0B26CEBDA100157C40 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF1D0A26CEBDA100157C40 /* ContentView.swift */; };
+		87FF1D0B26CEBDA100157C40 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF1D0A26CEBDA100157C40 /* WorkoutListView.swift */; };
 		87FF1D0D26CEBDAE00157C40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87FF1D0C26CEBDAE00157C40 /* Assets.xcassets */; };
 		87FF1D1026CEBDAE00157C40 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87FF1D0F26CEBDAE00157C40 /* Preview Assets.xcassets */; };
 		87FF1D1726CEBDDD00157C40 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FF1D1626CEBDDD00157C40 /* HealthKitHelper.swift */; };
@@ -18,10 +26,18 @@
 
 /* Begin PBXFileReference section */
 		8727B0FD26D0084B003BA4D9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		872BEF2727AC481800C89562 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		8759B86E26CFF7F500026014 /* GPXExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXExporter.swift; sourceTree = "<group>"; };
+		87CCFB3626D0530D003BFBE7 /* WorkoutListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListViewModel.swift; sourceTree = "<group>"; };
+		87CCFB3826D053AF003BFBE7 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
+		87D1663027AC615900C9BC49 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		87D1663227AC6F1F00C9BC49 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		87D1663427AC75E200C9BC49 /* IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
+		87D1663827AC992800C9BC49 /* GPXExportState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXExportState.swift; sourceTree = "<group>"; };
+		87D1663A27ACB0A500C9BC49 /* TranslucentBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentBackground.swift; sourceTree = "<group>"; };
 		87FF1D0526CEBDA100157C40 /* FitnessToGPX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitnessToGPX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87FF1D0826CEBDA100157C40 /* FitnessToGPXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessToGPXApp.swift; sourceTree = "<group>"; };
-		87FF1D0A26CEBDA100157C40 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		87FF1D0A26CEBDA100157C40 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
 		87FF1D0C26CEBDAE00157C40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87FF1D0F26CEBDAE00157C40 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		87FF1D1626CEBDDD00157C40 /* HealthKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
@@ -65,9 +81,17 @@
 				87FF1D1C26CEBEFC00157C40 /* Info.plist */,
 				87FF1D1826CEBE8300157C40 /* FitnessToGPX.entitlements */,
 				87FF1D0826CEBDA100157C40 /* FitnessToGPXApp.swift */,
-				87FF1D0A26CEBDA100157C40 /* ContentView.swift */,
+				87FF1D0A26CEBDA100157C40 /* WorkoutListView.swift */,
+				87D1663A27ACB0A500C9BC49 /* TranslucentBackground.swift */,
+				87CCFB3826D053AF003BFBE7 /* WorkoutDetailView.swift */,
+				87D1663827AC992800C9BC49 /* GPXExportState.swift */,
+				87D1663227AC6F1F00C9BC49 /* ShareSheet.swift */,
+				87CCFB3626D0530D003BFBE7 /* WorkoutListViewModel.swift */,
 				87FF1D1626CEBDDD00157C40 /* HealthKitHelper.swift */,
 				8759B86E26CFF7F500026014 /* GPXExporter.swift */,
+				872BEF2727AC481800C89562 /* Errors.swift */,
+				87D1663027AC615900C9BC49 /* Utils.swift */,
+				87D1663427AC75E200C9BC49 /* IO.swift */,
 				87FF1D0C26CEBDAE00157C40 /* Assets.xcassets */,
 				87FF1D0E26CEBDAE00157C40 /* Preview Content */,
 			);
@@ -161,10 +185,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87D1663927AC992800C9BC49 /* GPXExportState.swift in Sources */,
 				8759B86F26CFF7F500026014 /* GPXExporter.swift in Sources */,
-				87FF1D0B26CEBDA100157C40 /* ContentView.swift in Sources */,
+				87FF1D0B26CEBDA100157C40 /* WorkoutListView.swift in Sources */,
 				87FF1D0926CEBDA100157C40 /* FitnessToGPXApp.swift in Sources */,
+				87CCFB3726D0530D003BFBE7 /* WorkoutListViewModel.swift in Sources */,
+				87CCFB3926D053AF003BFBE7 /* WorkoutDetailView.swift in Sources */,
+				87D1663527AC75E200C9BC49 /* IO.swift in Sources */,
 				87FF1D1726CEBDDD00157C40 /* HealthKitHelper.swift in Sources */,
+				872BEF2827AC481800C89562 /* Errors.swift in Sources */,
+				87D1663B27ACB0A500C9BC49 /* TranslucentBackground.swift in Sources */,
+				87D1663327AC6F1F00C9BC49 /* ShareSheet.swift in Sources */,
+				87D1663127AC615900C9BC49 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
